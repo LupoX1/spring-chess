@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#chessboard {
+    margin: 0 auto;
+    user-select: none;
+    border-collapse: collapse;
+    background: white;
+}
+
+#chessboard td {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid lightgray;
+}
+
+#chessboard th {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#chessboard th div,
+#chessboard td div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chessboard.white tr:nth-child(odd) td:nth-child(even),
+#chessboard.white tr:nth-child(even) td:nth-child(odd){
+    background: white;
+}
+
+#chessboard.white tr:nth-child(odd) td:nth-child(odd),
+#chessboard.white tr:nth-child(even) td:nth-child(even){
+    background: darkgrey;
+}
+
+#chessboard.black tr:nth-child(odd) td:nth-child(even),
+#chessboard.black tr:nth-child(even) td:nth-child(odd){
+    background: darkgrey;
+}
+
+#chessboard.black tr:nth-child(odd) td:nth-child(odd),
+#chessboard.black tr:nth-child(even) td:nth-child(even){
+    background: white;
+}
+
+#chessboard .hide {
+    display: none;
+}
+
+#chessboard .drag-over {
+    background-color: rgba(255, 255, 0, 0.35);
+}
+
+.chess-piece img {
+    width: 60px;
+    height: 60px;
+}
+
+.board-cell{
+    width: 60px;
+    height: 60px;
+}
+
+.capture {
+    margin: 30px auto;
+    user-select: none;
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 30px;
+    width: 496px;
+    height: 120px;
+    background: white;
+}
+
+.capture .piece {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid lightgray;
+}
+
+.shadow-white{
+    box-shadow: 0 0 64px rgba(0, 0, 0, 1.0);
+}
+
+.shadow-black{
+    box-shadow: 0 0 64px rgba(255, 255, 255, 1.0);
+}
+
+.black{
+    background: black;
+}
+
+.white{
+    background : white;
+}
+
+#container div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
