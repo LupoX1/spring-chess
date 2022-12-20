@@ -71,13 +71,13 @@
 }
 
 .capture {
-    margin: 30px auto;
+    margin: 15px auto;
     user-select: none;
     display: flex;
     box-sizing: border-box;
-    padding: 0 30px;
-    width: 496px;
-    height: 120px;
+    padding: 0 15px;
+    width: 992px;
+    height: 60px;
     background: white;
 }
 

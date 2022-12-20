@@ -9,9 +9,9 @@ public class LoginController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public LoginMessage greeting() throws Exception {
+    public LoginMessage greeting(LoginMessage message) throws Exception {
         Thread.sleep(1000); // simulated delay
-        return new LoginMessage();
+        return null;
     }
 
 }

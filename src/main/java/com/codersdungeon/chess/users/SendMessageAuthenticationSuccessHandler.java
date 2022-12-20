@@ -29,6 +29,6 @@ public class SendMessageAuthenticationSuccessHandler
 
         simpMessagingTemplate.convertAndSend("/topic/greetings", new LoginMessage(authentication.getName()));
 
-        response.sendRedirect("/index.html");
+        response.sendRedirect("/lobby.html");
     }
 }
