@@ -55,6 +55,7 @@ public class WebSecurity {
                 .authorizeRequests()
                 .antMatchers("/api/v1/games/**").hasAnyRole("PLAYER")
                 .antMatchers("/lobby.html", "/history.html", "/result.html", "/match.html").hasAnyRole("PLAYER")
+                .antMatchers("/messages/**").hasAnyRole("PLAYER")
                 .anyRequest()
                 .permitAll()
                 .and()

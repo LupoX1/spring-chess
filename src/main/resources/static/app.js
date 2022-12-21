@@ -13,14 +13,16 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('/messages');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/greetings', function (greeting) {
-            console.log(greeting)
-            showGreeting(JSON.parse(greeting.body).name);
+            showGreeting(JSON.parse(greeting.body).content);
+        });
+        stompClient.subscribe('/user/queue/user-messages', function (greeting) {
+            $("#greetings").append(JSON.parse(greeting.body).content + "<br />");
         });
     });
 }
@@ -34,11 +36,20 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/chess/hello", {}, JSON.stringify({'message': $("#name").val()}));
+    fetch("http://localhost:8080/hello-user", {
+        headers : {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method : 'POST',
+        body : JSON.stringify({ message : "hello", toUser: "cicco" })
+    })
+    .catch(err => console.log(err))
 }
 
-function showGreeting(name) {
-    $("#greetings").append("<tr><td>" + name + "<button id=\""+name+"\">Play</button></td></tr>");
+function showGreeting(message) {
+    $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 
 $(function () {
