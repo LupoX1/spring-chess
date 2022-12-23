@@ -1,27 +1,41 @@
-package com.codersdungeon.chess.users;
+package com.codersdungeon.chess.service;
 
+import com.codersdungeon.chess.repository.PlayerRepository;
+import com.codersdungeon.chess.users.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/players")
-public class PlayerController {
+@Service
+public class DefaultPlayerService implements PlayerService {
 
     @Autowired
-    private PlayerService playerService;
+    private PlayerRepository playerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private SessionRegistry sessionRegistry;
 
-    @GetMapping("/active")
-    PlayerListDTO activePlayers(){
+    @Override
+    public Player registerNewUserAccount(PlayerDTO playerDTO){
+
+        Player player = new Player();
+        player.setEmail(playerDTO.username);
+        player.setPassword(passwordEncoder.encode(playerDTO.password));
+        player.setEnabled(true);
+        player.addRole(new UserRole("PLAYER"));
+        return playerRepository.save(player);
+    }
+
+    @Override
+    public PlayerListDTO lista() {
         PlayerListDTO response = new PlayerListDTO();
         response.players = new ArrayList<>();
 
@@ -37,10 +51,5 @@ public class PlayerController {
         }
 
         return response;
-    }
-
-    @PostMapping("/register")
-    void register(@RequestBody @Valid PlayerDTO playerDTO){
-        playerService.registerNewUserAccount(playerDTO);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Set;
 public class Player {
     @Id
     @Column(length = 50)
-    private String username;
+    private String email;
 
     @Column(length = 500, nullable = false)
     private String password;
@@ -16,15 +16,18 @@ public class Player {
     @Column(nullable = false)
     private boolean enabled;
 
+    @Column (length = 50, unique = true)
+    private String nickname;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles;
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String username) {
+        this.email = username;
     }
 
     public String getPassword() {
@@ -51,6 +54,14 @@ public class Player {
         this.roles = roles;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public void addRole(UserRole role){
         if(this.roles == null){
             this.roles = new HashSet<>();
@@ -61,7 +72,7 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-                "username='" + username + '\'' +
+                "username='" + email + '\'' +
                 ", password=[PROTECTED]" +
                 ", enabled=" + enabled +
                 ", roles=" + roles +

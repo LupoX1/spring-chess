@@ -26,7 +26,11 @@ public class PlayerDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return player.getUsername();
+        return player.getEmail();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
@@ -55,4 +59,6 @@ public class PlayerDetails implements UserDetails {
                 "player=" + player +
                 '}';
     }
+
+
 }

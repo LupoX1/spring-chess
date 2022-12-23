@@ -1,6 +1,7 @@
 package com.codersdungeon.chess.config;
 
 import com.codersdungeon.chess.users.SendMessageAuthenticationSuccessHandler;
+import com.codersdungeon.chess.users.SendMessageLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @EnableWebSecurity
@@ -27,6 +29,11 @@ public class WebSecurity {
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler(){
         return new SendMessageAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new SendMessageLogoutSuccessHandler();
     }
 
     @Bean
@@ -48,7 +55,7 @@ public class WebSecurity {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationProvider authProvider, AuthenticationSuccessHandler authenticationSuccessHandler, SessionRegistry sessionRegistry) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationProvider authProvider, AuthenticationSuccessHandler authenticationSuccessHandler, LogoutSuccessHandler logoutSuccessHandler, SessionRegistry sessionRegistry) throws Exception {
         http.csrf().disable()
                 .cors()
                 .and()
@@ -62,7 +69,11 @@ public class WebSecurity {
                 .formLogin()
                 .loginPage("/login.html")
                 .loginProcessingUrl("/login")
+                .usernameParameter("email")
                 .successHandler(authenticationSuccessHandler)
+                .and()
+                .logout()
+                .logoutSuccessHandler(logoutSuccessHandler)
                 .and()
                 .authenticationProvider(authProvider)
                 .sessionManagement()

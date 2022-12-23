@@ -2,20 +2,20 @@ package com.codersdungeon.chess.websocket;
 
 public class LoginMessage {
 
-    private String name;
+    private String content;
 
     public LoginMessage() {
     }
 
     public LoginMessage(String name) {
-        this.name = name;
+        this.content = name;
     }
 
-    public String getName() {
-        return name;
+    public String getContent() {
+        return content;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setContent(String name) {
+        this.content = name;
     }
 }

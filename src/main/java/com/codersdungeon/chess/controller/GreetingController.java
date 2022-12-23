@@ -1,5 +1,7 @@
-package com.codersdungeon.chess.websocket;
+package com.codersdungeon.chess.controller;
 
+import com.codersdungeon.chess.websocket.Greeting;
+import com.codersdungeon.chess.websocket.HelloMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.MessageMapping;
